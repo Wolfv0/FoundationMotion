@@ -1,1 +1,1 @@
-# FoundationMotion (Wolf V2)
+# FoundationMotion (Wolf 🐺 V2)
