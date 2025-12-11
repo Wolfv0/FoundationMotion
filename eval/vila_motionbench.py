@@ -26,7 +26,9 @@ def enumerate_mp4_files(directory):
     
     return mp4_files
 
-def main(task="av_hands_eval", model_path = "Efficient-Large-Model/NVILA-Lite-15B-Video"):
+def main(task="av_hands_eval",
+        base_dir="~/workspace/v2-dev",
+        model_path = "Efficient-Large-Model/NVILA-Lite-15B-Video"):
     """
     Main function to process video files and generate answers using NVILA model.
     
@@ -42,8 +44,9 @@ def main(task="av_hands_eval", model_path = "Efficient-Large-Model/NVILA-Lite-15
         return
 
     # Directory to search
-    video_dir = f"/home/ligengz/workspace/v2-dev/{task}/videos"
-    qa_dir = f"/home/ligengz/workspace/v2-dev/{task}/qa_shuffled"
+    base_dir = os.path.expanduser(base_dir)
+    video_dir = f"{base_dir}/{task}/videos"
+    qa_dir = f"{base_dir}/{task}/qa_shuffled"
 
     # Get all mp4 files
     mp4_files = enumerate_mp4_files(video_dir)
@@ -54,8 +57,6 @@ def main(task="av_hands_eval", model_path = "Efficient-Large-Model/NVILA-Lite-15
     # from llava.model.configuration_llava import JsonSchemaResponseFormat, ResponseFormat
     # model_path = "Efficient-Large-Model/NVILA-Lite-8B"
     # model_path = "Efficient-Large-Model/NVILA-8B-Video"
-    # model_path = "/lustre/fsw/portfolios/nvr/projects/nvr_elm_llm/models/nvila-internal-33b-video-v1"
-    
     
     model = None
     # Print the results
