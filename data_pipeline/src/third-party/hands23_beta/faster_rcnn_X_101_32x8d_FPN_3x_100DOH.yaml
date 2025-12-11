@@ -1,0 +1,45 @@
+_BASE_: "./Base-RCNN-FPN.yaml"
+MODEL:
+  MASK_ON: True
+  WEIGHTS: "detectron2://ImageNetPretrained/FAIR/X-101-32x8d.pkl"
+  #WEIGHTS: "/home/evacheng/mar_04_high_lr/model_0519999.pth"
+  #WEIGHTS: "/home/evacheng/mar_07_backbone_lr_0.01/model_0019999.pth"
+  PIXEL_STD: [57.375, 57.120, 58.395]
+  RESNETS:
+    STRIDE_IN_1X1: False  # this is a C2 model
+    NUM_GROUPS: 32
+    WIDTH_PER_GROUP: 8
+    DEPTH: 101
+  ROI_HEADS:
+    NAME: "hoRCNNROIHeads"
+    NUM_CLASSES: 3
+    SCORE_THRESH_TEST: 0.8
+SOLVER:
+  STEPS: (210000, 250000)
+  MAX_ITER: 5000000000 #640000
+  CHECKPOINT_PERIOD: 5000 #80000
+  IMS_PER_BATCH: 1
+# OUTPUT_DIR: "/y/evacheng/models_with_iou_and_more_mlp"
+# OUTPUT_DIR: "/y/evacheng/new_mode"
+#OUTPUT_DIR: "/home/evacheng/2023_obj_detect_test"
+# OUTPUT_DIR: "/home/evacheng/trained_on_EK"
+#OUTPUT_DIR: "/y/evacheng/_500_trained_on_EK"
+#OUTPUT_DIR: "/home/evacheng/feb_23_trained_on_blur" #latest dir on vl-fb
+#OUTPUT_DIR: "/y/evacheng/feb_23_trained_on_blur"
+#OUTPUT_DIR : "/home/evacheng/mar_01_try"
+#OUTPUT_DIR : "/y/evacheng/mar_02_try"
+#OUTPUT_DIR: "/home/evacheng/mar_04_high_lr/" # training launched on march 4th with 0.02 learning rate
+#OUTPUT_DIR: "/home/evacheng/mar_07_all_lr_0.02/"
+#OUTPUT_DIR: "/home/evacheng/mar_08_all_lr_0.01_relation_loss_0.01"
+#OUTPUT_DIR: "/home/evacheng/mar_10_all_lr_0.01_relation_1e-4_other_scale_0.01"
+#OUTPUT_DIR: "/home/evacheng/mar_20_ptRend_all_lr_0.01_relation_0.1_other_0.1"
+OUTPUT_DIR: "/home/evacheng/sam_val"
+#OUTPUT_DIR: "/y/evacheng/seg_model_2023_test"
+TEST:
+  DETECTIONS_PER_IMAGE: 40
+DATALOADER:
+  NUM_WORKERS: 0
+DATASETS:
+  TRAIN: ("100DOH_hand_TRAIN",) 
+  TEST: ("100DOH_hand_VAL",)
+  #train val changed to upper case based on dataset //Feb 5 2023

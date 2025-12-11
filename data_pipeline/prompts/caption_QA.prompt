@@ -1,0 +1,143 @@
+# Background and task
+You are provided with a video and a detailed video caption that describes object motions and spatial relationships. 
+Your task is to generate a list of concise questions and corresponding answers that evaluate a viewer's understanding of object motion analysis and spatial relationships.
+
+
+# Requirements
+Question coverage should focus on five main categories:
+
+**1. Motion Recognition Questions:**
+- **Action description**: What action is [object/person] performing? (e.g., raising hand, skiing, cooking, walking, etc.)
+- **Activity identification**: Describe the specific motion or gesture being performed
+- **Behavior characterization**: What type of movement pattern is observed?
+
+**2. Action Order Questions:**
+- **Temporal sequence**: Which action happens first/second/last?
+- **Action timing**: What action occurs before/after [specific action]?
+- **Sequential events**: In what order do the actions unfold?
+
+**3. Motion-related Object Questions:**
+- **Actor identification**: Which object/person performs [specific action]?
+- **Object-action association**: What does [object] do in the video?
+- **Agent-activity linking**: Who or what is responsible for [specific motion]?
+
+**4. Location-related Motion Questions:**
+- **Spatial motion context**: Where does [action] take place in the scene?
+- **Position-based activity**: What motion happens in the [left/right/center/upper/lower] part of the scene?
+- **Spatial properties**: How does the location affect or relate to the motion?
+
+**5. Repetition Count Questions:**
+- **Frequency counting**: How many times does [action] occur?
+- **Repetitive patterns**: How often is [motion] repeated?
+- **Cyclical behaviors**: What is the count of [repeated action]?
+
+**6. Traditional Motion Analysis Questions:**
+- **Direction**: Which direction does [object] move? (left, right, up, down, diagonal directions)
+- **Distance**: How far does [object] move? (specific measurements, relative distances)
+- **Velocity**: How fast does [object] move? (speed characteristics, acceleration patterns)
+- **Trajectory**: What path does [object] follow? (straight, curved, circular, zigzag patterns)
+
+**7. Spatial Relationship Questions:**
+- **Relative positions**: Where is [object A] positioned relative to [object B]? (left/right/up/down/front/back)
+- **Distance relationships**: How far apart are [object A] and [object B]?
+- **Positional changes**: How does the spatial relationship between [object A] and [object B] change?
+
+Answer requirements:
+- Answers must be concise and directly address the question.
+- Include specific directional terms, distance measurements, and spatial descriptors when available.
+- Do not include extra explanations or thought processes in the answers.
+
+
+# Task
+First, generate a list of questions and answers as below, with an empty line between each question and answer pair. Do not include any other texts in the output.
+Q1: ...
+A1: ...
+
+Q2: ...
+A2: ...
+
+
+Here are example questions and answers:
+Q1: What action is the person performing with their right hand?
+A1: The person is raising their right hand above their head.
+
+Q2: Which action happens first in the video?
+A2: The person picks up the cup before stirring.
+
+Q3: What object performs the cutting motion?
+A3: The knife performs the cutting motion on the vegetables.
+
+Q4: Where in the scene does the stirring action take place?
+A4: The stirring action takes place in the upper-left area of the kitchen counter.
+
+Q5: How many times does the person wave their hand?
+A5: The person waves their hand 3 times.
+
+Q6: In which direction does the red ball move?
+A6: The red ball moves diagonally from upper-left to lower-right.
+
+Q7: How far does the cup travel during the video?
+A7: The cup travels approximately 50cm across the table.
+
+Q8: What type of trajectory does the spoon follow?
+A8: The spoon follows a circular stirring motion.
+
+Q9: Where is the bowl positioned relative to the cutting board initially?
+A9: The bowl is positioned 20cm to the left of the cutting board.
+
+Q10: How does the spatial relationship between the plate and the fork change?
+A10: The fork moves from the right side to the left side of the plate.
+
+Q11: At what speed does the person's hand move toward the object?
+A11: The person's hand moves rapidly downward.
+
+Q12: Which object is located on the upper-right side of the scene?
+A12: The kitchen towel is located on the upper-right side.
+
+Then, for each question and answer, turn the single answer into 4 multiple choices with reasonable choices generated from the caption but distinctive from the correct answer. 
+Please make sure each choice in the four choices is distinctive and do not have ambiguity with any other choice.
+Check the video content to make sure to never generate ambiguous multiple choices for the same question. 
+Always put the correct answer at the first choice.
+
+
+# Output format
+The output format: output a list of strings and each string contains a question and its corresponding multiple choices as below.
+The number of questions equal to the number of items in the list. 
+Each question must have 4 choices listed, after A, B, C, D.
+[
+'Q1: ...
+A: ...
+B: ...
+C: ...
+D: ...', 
+
+'Q2: ...
+A: ...
+B: ...
+C: ...
+D: ...',
+
+...
+]
+
+The correct answer is always at A. Do not include any other texts in the output.
+with an empty line between each question and answer pair. 
+
+Focus on generating questions that test understanding of:
+- Motion recognition and action identification (raising hand, cooking, walking, etc.)
+- Action temporal sequences and ordering
+- Object-action associations and actor identification
+- Location-based motion analysis and spatial context
+- Repetition counting and frequency analysis
+- Object movement directions (left, right, up, down, diagonal)
+- Movement distances and trajectories  
+- Movement speeds and velocity patterns
+- Spatial positioning (left/right/up/down relationships)
+- Changes in spatial arrangements
+- Object proximity and distance relationships
+
+
+
+# Video caption input
+The video caption: {video_caption}
+Please generate your questions and answers accordingly, focusing on motion analysis and spatial relationships described in the caption.
