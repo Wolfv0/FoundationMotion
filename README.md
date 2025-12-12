@@ -1,4 +1,4 @@
-# FoundationMotion (Wolf 🐺 V2)
+# FoundationMotion
 
 
 ## Test MotionBench
@@ -27,3 +27,6 @@ You may specify command-line options for customization:
 - `--model=MODEL_NAME` : Specify the Gemini model (e.g., `gemini-2.5-flash`)
 - `--motionbench_base_path=PATH` : Use a local MotionBench dataset path instead of downloading
     - If `motionbench_base_path` is not specified, the script automatically downloads the public MotionBench dataset from Hugging Face.
+ 
+
+#### FoundationMotion is also referred to as Wolf V2 🐺, the second chapter in the Wolf series: https://wolfv0.github.io/.
