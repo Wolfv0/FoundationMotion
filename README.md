@@ -1,5 +1,6 @@
 # FoundationMotion
 
+Stay tuned — more will come in a few days! [12/11/2025]
 
 ## Test MotionBench
 
