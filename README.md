@@ -21,10 +21,27 @@ pip install fire tqdm huggingface-hub
 pip install -U https://github.com/NVlabs/VILA
 ```
 
+## Usage
 
+### Data curation
 
+Follow the instructions in [data_pipeline/README.md](data_pipeline/README.md) to set up the video files you want to process. Customize your paths and settings in `data_pipeline/scripts/config.sh`.
 
+Run:
+```bash
+bash data_pipeline/scripts/submit_ranges.sh
+```
 
+This will start processing video data. Modify `submit_range 0 60` to specify the range of videos to process — 0 is the starting index and 60 is the ending index. You can submit multiple jobs with different or even overlapping ranges; we handled all the rest for you. Just submit your jobs and adjust the start/end values as needed.
+
+### Eval
+
+```bash
+python eval/vila_motionbench.py \
+    --task="av_hands_eval" \
+    --base_dir="~/workspace/v2-dev" \
+    --model_path="WoWolf/nvila_15b_video-fm-tuned"
+```
 
 ## Examples
 
