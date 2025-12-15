@@ -2,13 +2,9 @@
 
 [Paper](https://arxiv.org/pdf/2512.10927) | [Project Page](https://yulugan.com/projects/FoundationMotion.html) | [Model](https://huggingface.co/WoWolf/models) | [Datasets](https://huggingface.co/datasets/WoWolf/v2-dev/tree/main) | [Citation](#citation)
 
-FoundationMotion offers a scalable way to curate detailed motion datasets, enabling effective fine-tuning of diverse models (VLM / VLA / world models) to improve motion and spatial reasoning. 
+FoundationMotion offers a scalable way to curate detailed motion datasets, enabling effective fine-tuning of diverse models (VLM / VLA / World Models) to improve motion and spatial reasoning. 
 
 ![Dataset Example](assets/data_example.gif)
-
-
-⏰ 👷🏻‍♂️ Stay tuned — more will come in a few days! [12/11/2025]
-
 
 ## Environment Setup
 
@@ -38,7 +34,7 @@ This will start processing video data. Modify `submit_range 0 60` to specify the
 
 ```bash
 python eval/vila_motionbench.py \
-    --task="av_hands_eval" \
+    --task="robotics_hand_eval" \
     --base_dir="~/workspace/v2-dev" \
     --model_path="WoWolf/nvila_15b_video-fm-tuned"
 ```
@@ -64,7 +60,7 @@ python demo_nvila.py --video_path /path/to/video.mp4 --prompt "Your question her
 If you use our work or our implementation in this repo, or find them helpful, please consider giving a citation in the following format.
 
 ```bash
-@misc{gan2025foundationmotionautolabelingreasoningspatial,
+@misc{gan2025foundationmotion,
     title={FoundationMotion: Auto-Labeling and Reasoning about Spatial Movement in Videos}, 
     author={Yulu Gan and Ligeng Zhu and Dandan Shan and Baifeng Shi and Hongxu Yin and Boris Ivanovic and Song Han and Trevor Darrell and Jitendra Malik and Marco Pavone and Boyi Li},
     year={2025},
