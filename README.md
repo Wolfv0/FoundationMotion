@@ -42,7 +42,7 @@ python eval/vila_motionbench.py \
 
 ## Interactive Demo
 
-Full Huggingface Demo (this demo is also hosted on [Huggingface Spaces](https://huggingface.co/spaces/yulu2/FoundationMotion)
+Full Huggingface Demo (this demo is also hosted on [Huggingface Spaces](https://huggingface.co/spaces/yulu2/FoundationMotion))
 
 ![Interactive Demo](assets/interactive_demo.png)
 
