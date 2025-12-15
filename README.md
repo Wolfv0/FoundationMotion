@@ -36,7 +36,7 @@ python process_single_video.py --video_path /path/to/video.mp4 --base_output_dir
 ```
 
 ### [Model Inference] Process a single video
-- [examples/process_single_video.py](data_pipeline/demo_nvila.py) - script to process a single video to get trajectories, captions, and question–answer pairs.
+- [examples/process_single_video.py](data_pipeline/demo_nvila.py) - script to process a single video using our model.
 
 ```bash
 python demo_nvila.py --video_path /path/to/video.mp4 --prompt "Your question here"
