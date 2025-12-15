@@ -44,6 +44,15 @@ python eval/vila_motionbench.py \
 
 Full Huggingface Demo (this demo is also hosted on [Huggingface Spaces](https://huggingface.co/spaces/yulu2/FoundationMotion)
 
+![Interactive Demo](assets/interactive_demo.png)
+
+Run the demo:
+```bash
+python app.py
+```
+
+Drag a video, ask a question, and get an ansewer.
+
 ## Examples
 
 ### [Data Curation] Process a single video

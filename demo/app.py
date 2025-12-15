@@ -11,6 +11,9 @@ from qwen_vl_utils import process_vision_info
 
 
 MODEL_ID = "WoWolf/Qwen2_5vl-7b-fm-tuned"
+MAX_FRAMES = 48
+MAX_NEW_TOKENS = 128
+TEMPERATURE = 1.0
 
 model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
     MODEL_ID,
@@ -23,6 +26,7 @@ processor = AutoProcessor.from_pretrained(
     MODEL_ID,
     trust_remote_code=True,
 )
+
 
 def extract_video_frames(video_path: str, max_frames: int = 8) -> List[Image.Image]:
     """Extract key frames from video using OpenCV"""
@@ -64,7 +68,7 @@ def build_messages(frames: List[Image.Image], question: str, fps: float = 1.0):
             "content": [
                 {
                     "type": "video",
-                    "video": frames,  # Directly pass the frame list
+                    "video": frames,
                     "fps": fps,
                 },
                 {"type": "text", "text": question},
@@ -73,33 +77,28 @@ def build_messages(frames: List[Image.Image], question: str, fps: float = 1.0):
     ]
     return messages
 
-
 @torch.inference_mode()
-def answer(video, question, max_frames=8, max_new_tokens=256, temperature=0.0):
+def answer(video, question):
     if video is None:
         return "Please upload a video first."
     if not question or question.strip() == "":
         question = "Describe this video in detail."
 
     # Extract frames from video
-    frames = extract_video_frames(video, max_frames=int(max_frames))
+    frames = extract_video_frames(video, max_frames=MAX_FRAMES)
     if not frames:
         return "Error: Unable to extract frames from video."
 
-    # Build messages
     messages = build_messages(frames, question, fps=1.0)
 
-    # Apply chat template
     text = processor.apply_chat_template(
         messages, 
         tokenize=False, 
         add_generation_prompt=True
     )
 
-    # Process vision info (key step from qwen_vl_utils)
     image_inputs, video_inputs = process_vision_info(messages)
 
-    # Prepare inputs
     inputs = processor(
         text=[text],
         images=image_inputs,
@@ -109,11 +108,10 @@ def answer(video, question, max_frames=8, max_new_tokens=256, temperature=0.0):
     )
     inputs = inputs.to(model.device)
 
-    # Generation settings
     gen_kwargs = dict(
-        max_new_tokens=int(max_new_tokens),
-        do_sample=(float(temperature) > 0.0),
-        temperature=float(temperature) if float(temperature) > 0 else None,
+        max_new_tokens=MAX_NEW_TOKENS,
+        do_sample=(TEMPERATURE > 0.0),
+        temperature=TEMPERATURE if TEMPERATURE > 0 else None,
         pad_token_id=processor.tokenizer.eos_token_id,
         use_cache=True,
     )
@@ -134,7 +132,7 @@ def answer(video, question, max_frames=8, max_new_tokens=256, temperature=0.0):
     return output_text.strip()
 
 
-with gr.Blocks(title="Video Q&A with Qwen2.5-VL-3B") as demo:
+with gr.Blocks(title="Video Q&A with Qwen2.5-VL-7B") as demo:
     gr.Markdown(
         """
         # FoundationMotion: Auto-Labeling and Reasoning about Spatial Movement in Videos
@@ -144,23 +142,16 @@ with gr.Blocks(title="Video Q&A with Qwen2.5-VL-3B") as demo:
 
     with gr.Row():
         with gr.Column(scale=1):
-            video = gr.Video(label="Upload Video (mp4, mov, webm)")
+            video = gr.Video(label="Upload Video (mp4, mov, webm)", height=400)
+        
+        with gr.Column(scale=1):
             question = gr.Textbox(
                 label="Your Question",
                 placeholder="e.g., What is happening in this video?",
                 lines=2,
             )
             ask_btn = gr.Button("Ask", variant="primary")
-        
-        with gr.Column(scale=1):
-            output = gr.Textbox(label="Answer", lines=12, show_copy_button=True)
-
-    with gr.Accordion("⚙️ Advanced Settings", open=False):
-        with gr.Row():
-            max_frames = gr.Slider(4, 16, value=8, step=1, label="Max Frames to Extract")
-            max_new_tokens = gr.Slider(64, 512, value=256, step=32, label="Max New Tokens")
-        with gr.Row():
-            temperature = gr.Slider(0.0, 1.0, value=0.0, step=0.1, label="Temperature (0=deterministic)")
+            output = gr.Textbox(label="Answer", lines=10, show_copy_button=True)
 
     gr.Examples(
         examples=[
@@ -173,10 +164,9 @@ with gr.Blocks(title="Video Q&A with Qwen2.5-VL-3B") as demo:
 
     ask_btn.click(
         fn=answer,
-        inputs=[video, question, max_frames, max_new_tokens, temperature],
+        inputs=[video, question],
         outputs=[output],
     )
-
 
 if __name__ == "__main__":
     demo.launch()
