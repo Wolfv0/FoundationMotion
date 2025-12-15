@@ -1,4 +1,4 @@
-# FoundationMotion (FM)
+# FoundationMotion
 
 [Paper](https://arxiv.org/pdf/2512.10927) | [Project Page](https://yulugan.com/projects/FoundationMotion.html) | [Model](https://huggingface.co/WoWolf/models) | [Datasets](https://huggingface.co/datasets/WoWolf/v2-dev/tree/main) | [Citation](#citation)
 
