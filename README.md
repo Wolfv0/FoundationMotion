@@ -39,6 +39,11 @@ python eval/vila_motionbench.py \
     --model_path="WoWolf/nvila_15b_video-fm-tuned"
 ```
 
+
+## Interactive Demo
+
+Full Huggingface Demo (this demo is also hosted on [Huggingface Spaces](https://huggingface.co/spaces/yulu2/FoundationMotion)
+
 ## Examples
 
 ### [Data Curation] Process a single video

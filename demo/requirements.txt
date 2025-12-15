@@ -1,0 +1,10 @@
+gradio>=4.0.0
+torch>=2.0.0
+transformers>=4.45.0
+accelerate>=0.26.0
+qwen-vl-utils
+opencv-python-headless
+numpy
+pillow
+spaces
+torchvision
