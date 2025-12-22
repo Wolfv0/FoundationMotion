@@ -85,10 +85,10 @@ export HUGGING_FACE_HUB_TOKEN=your_token_here
 ### Quickstart (demo.sh)
 Run the end-to-end demo (batch processing with auto-resume):
 ```bash
-bash scripts/demo.sh
+bash scripts/submit_ranges.sh
 ```
 
-This script processes videos from `/data/vision/torralba/selfmanaged/isola/u/yulu/cmar/Videos/Videos` and writes results to `/data/vision/torralba/selfmanaged/isola/u/yulu/cmar/Videos/video_general_obj_det_finished`. Batch submission scripts are generated under `batch_scripts`.
+This will start processing video data. Modify submit_range 0 60 to specify the range of videos to process — 0 is the starting index and 60 is the ending index. You can submit multiple jobs with different or even overlapping ranges; we handled all the rest for you. Just submit your jobs and adjust the start/end values as needed.
 
 ### Detailed Pipeline
 
