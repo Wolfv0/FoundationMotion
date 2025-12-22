@@ -85,10 +85,10 @@ export HUGGING_FACE_HUB_TOKEN=your_token_here
 ### Quickstart (demo.sh)
 Run the end-to-end demo (batch processing with auto-resume):
 ```bash
-bash scripts/submit_ranges.sh
+bash scripts/demo.sh
 ```
 
-This will start processing video data. Modify submit_range 0 60 to specify the range of videos to process — 0 is the starting index and 60 is the ending index. You can submit multiple jobs with different or even overlapping ranges; we handled all the rest for you. Just submit your jobs and adjust the start/end values as needed.
+This script processes videos from `/data/vision/torralba/selfmanaged/isola/u/yulu/cmar/Videos/Videos` and writes results to `/data/vision/torralba/selfmanaged/isola/u/yulu/cmar/Videos/video_general_obj_det_finished`. Batch submission scripts are generated under `batch_scripts`.
 
 ### Detailed Pipeline
 
@@ -141,48 +141,85 @@ accelerate launch \
 
 > **Important**: `--video_dir` should point to the original videos directory, not videos_crop.
 
-## Directory Structure
+#### Step 4: Generate Video Captions
+Generate comprehensive video captions using GPT-4o based on video frames and motion information:
+```bash
+python 2_generate_caption.py \
+    --model gpt4o_mini \
+    --video_dir /path/to/video_general_obj_det_finished
 ```
-├── Videos/                 # Original videos directory
+
+
+#### Step 5: Generate Q&A Pairs
+Generate multiple-choice Q&A pairs from video captions for motion understanding evaluation:
+```bash
+python 3_generate_QA.py \
+    --model gpt4o_mini \
+    --video_dir /path/to/video_general_obj_det_finished \
+    --caption_dir /path/to/videos_captions_gpt4o_mini \
+    --prompt_path prompts/caption_QA.prompt
+```
+
+
+## Directory Structure
+
+Full pipeline output structure:
+```
+{DATA_ROOT}/
+├── Videos/                              # Step 1: Original input videos
 │   ├── name1.mp4
 │   ├── name2.mp4
 │   └── ...
 │
-├── Videos_crop/            # Preprocess
+├── Videos_crop/                         # Step 1: Cropped videos (5-10 seconds)
 │   ├── name1.mp4
 │   ├── name2.mp4
 │   └── ...
 │
-├── Videos_crop_decode/     # Step-0
+├── Videos_crop_decode/                  # Step 2: Decoded frames
 │   ├── name1/
 │   │   ├── 1.jpg
 │   │   ├── 2.jpg
 │   │   └── ...
 │   ├── name2/
-│   │   ├── 1.jpg
 │   │   └── ...
 │   └── ...
 │
-└── Videos_general_obj_det_finished/  # Step-1
-    ├── name1.mp4
-    ├── name2.mp4
-    └── ...
+├── video_general_obj_det_finished/      # Step 3: Object detection outputs
+│   ├── name1.mp4                        # Annotated video with bboxes
+│   ├── name1.json                       # Motion info (bboxes, interactions)
+│   ├── name1_camera_motion_skipped/     # (if camera motion detected)
+│   ├── name2.mp4
+│   ├── name2.json
+│   └── ...
+│
+├── videos_captions_{model}/             # Step 4: Generated captions
+│   ├── name1.json                       # Video caption JSON
+│   ├── name2.json
+│   └── ...
+│
+├── videos_QAs_{model}/                  # Step 5: Generated Q&A pairs
+│   ├── name1.json                       # Multiple-choice QA JSON
+│   ├── name2.json
+│   └── ...
+│
+├── .chunk_assignments/                  # Parallel processing metadata
+│   └── video_chunks_{N}.txt             # Stable chunk assignments
+│
+└── range_{start}_{end}_processing_summary.json  # Batch processing summaries
 ```
 
-### Current layout:
+### Example layout:
 ```
-Videos
-├── Videos/                          # Original input videos (used by demo.sh)
+Videos/
+├── Videos/                              # Original input videos
 │   ├── 9fbfac6e733249496dfab5fd42cf329e.mp4
 │   ├── diy_v_De7OXEsFTGY_frame000211__start_12547_end_12632.mp4
-│   ├── diy_v_ECU5zeSI9eY_frame000140__start_8286_end_8376.mp4
-│   ├── diy_v_tJ88nPS-Df8_frame000022__start_1013_end_1088.mp4
-│   ├── Wolf_Data_2025-08-08_11.44.05.mp4
 │   └── Wolf_Data_2025-08-08.mp4
-├── video_general_obj_det_finished/  # Processed outputs (.mp4/.json and per-video dirs)
-├── Videos_crop/
-├── Videos_crop_decode/
-├── videos_captions_gpt4o_mini/
-├── videos_QAs_gpt4o_mini/
-├── ignore/
+├── Videos_crop/                         # Cropped versions
+├── Videos_crop_decode/                  # Extracted frames
+├── video_general_obj_det_finished/      # Object detection results
+├── videos_captions_gpt4o_mini/          # GPT-4o-mini captions
+├── videos_QAs_gpt4o_mini/               # GPT-4o-mini Q&A pairs
+└── range_0_60_processing_summary.json   # Batch processing log
 ```
