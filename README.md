@@ -87,3 +87,8 @@ If you use our work or our implementation in this repo, or find them helpful, pl
 
 
 #### FoundationMotion is also referred to as Wolf V2 🐺, the second chapter in the Wolf series: https://wolfv0.github.io/.
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=sunrainyg/FoundationMotion&type=Date)](https://star-history.com/#sunrainyg/FoundationMotion&Date)
