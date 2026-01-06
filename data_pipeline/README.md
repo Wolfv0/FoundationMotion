@@ -4,7 +4,7 @@
 
 ### Option 1  (Recommended)
 ```bash
-conda env create -f environment.yml
+conda env create -f data_pipeline/environment.yml
 conda activate fm
 ```
 
