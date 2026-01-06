@@ -39,7 +39,7 @@ def checkanswer(output, answer):
     else:
         return 0
 
-def process_video_question(video_info, question, client, video_base_path, model_name):
+def process_video_question(video_info, question, client, video_base_path, model_name, fps=4):
     """
     Process a single video question in parallel.
     
@@ -49,6 +49,7 @@ def process_video_question(video_info, question, client, video_base_path, model_
         client: Gemini client
         video_base_path (str): Base path for videos
         model_name (str): Name of the Gemini model to use
+        fps (int): Frames per second for video metadata (default: 4)
         
     Returns:
         tuple: (video_path, question_info_dict)
@@ -69,7 +70,7 @@ def process_video_question(video_info, question, client, video_base_path, model_
                 parts=[
                     types.Part(
                         inline_data=types.Blob(data=video_bytes, mime_type='video/mp4'),
-                        video_metadata=types.VideoMetadata(fps=1)
+                        video_metadata=types.VideoMetadata(fps=fps)
                     ),
                     types.Part(text=prompt)
                 ]
@@ -110,7 +111,7 @@ def save_results(output_json, output_file="gemini_answer_motionbench.json"):
     os.rename(output_file_temp, output_file)
     print(f"Saved results to {output_file}")
 
-def main(max_workers=8, model="gemini-2.5-flash", motionbench_base_path=None):
+def main(max_workers=8, model="gemini-2.5-flash", motionbench_base_path=None, fps=4):
     if motionbench_base_path is None:
         # Download using Hugging Face if path not specified
         from pathlib import Path
@@ -143,6 +144,7 @@ def main(max_workers=8, model="gemini-2.5-flash", motionbench_base_path=None):
     print(f"Using {max_workers} parallel workers")
     print(f"Using model: {model}")
     print(f"Video base path: {video_base_path}")
+    print(f"Using fps: {fps}")
     
     # Generate output filename with model name
     model_suffix = model.replace("/", "_").replace("-", "_")
@@ -159,7 +161,7 @@ def main(max_workers=8, model="gemini-2.5-flash", motionbench_base_path=None):
             continue
             
         for question in questions:
-            tasks.append((video_info, question, client, video_base_path, model))
+            tasks.append((video_info, question, client, video_base_path, model, fps))
     
     print(f"Total tasks to process: {len(tasks)}")
     
