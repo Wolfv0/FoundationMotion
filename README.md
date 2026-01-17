@@ -63,6 +63,9 @@ python process_single_video.py --video_path /path/to/video.mp4 --base_output_dir
 ```
 
 ### [Model Inference] Process a single video
+
+Please find our models [here]([examples/demo_nvila.py](https://huggingface.co/WoWolf/models))
+
 - [examples/demo_nvila.py](examples/demo_nvila.py) - script to process a single video using our model.
 
 ```bash
