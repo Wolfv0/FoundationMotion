@@ -1,6 +1,6 @@
 # FoundationMotion
 
-[Paper](https://arxiv.org/pdf/2512.10927) | [Project Page](https://yulugan.com/projects/FoundationMotion.html) | [Model](https://huggingface.co/WoWolf/models) | [Datasets](https://huggingface.co/datasets/WoWolf/v2-dev/tree/main) | [Interactive Demo](https://huggingface.co/spaces/yulu2/FoundationMotion) | [Citation](#citation)
+[Paper](https://arxiv.org/pdf/2512.10927) | [Project Page](https://yulugan.com/projects/FoundationMotion.html) | [Model](https://huggingface.co/WoWolf/models) | [Datasets](https://huggingface.co/datasets/WoWolf/v2-dev/tree/main) | [Interactive Demo](https://huggingface.co/spaces/yulu2/FoundationMotion) | [Citation](#citation) | [Blog](https://sites.google.com/site/boyilics/website-builder/foundationmotion)
 
 FoundationMotion offers a scalable way to curate detailed motion datasets, enabling effective fine-tuning of diverse models (VLM / VLA / World Models) to improve motion and spatial reasoning. 
 
