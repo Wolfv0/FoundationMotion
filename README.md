@@ -30,6 +30,11 @@ bash data_pipeline/scripts/submit_ranges.sh
 
 This will start processing video data. Modify `submit_range 0 60` to specify the range of videos to process — 0 is the starting index and 60 is the ending index. You can submit multiple jobs with different or even overlapping ranges; we handled all the rest for you. Just submit your jobs and adjust the start/end values as needed.
 
+### Inference
+```
+python inference_wolfv2_qwen2.5_7b.py --video YOUR_VIDEO_PATH
+```
+
 ### Eval
 
 ```bash
