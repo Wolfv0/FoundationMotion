@@ -33,7 +33,7 @@ This will start processing video data. Modify `submit_range 0 60` to specify the
 ### Inference
 ```
 cd ~/inference
-python inference_wolfv2_qwen2.5_7b.py --video YOUR_VIDEO_PATH
+python inference_wolfv2_qwen2.5_7b.py --video YOUR_VIDEO_PATH --prompt YOUR_QUESTION
 ```
 
 ### Eval
