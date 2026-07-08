@@ -65,7 +65,7 @@ Drag a video, ask a question, and get an ansewer.
 - [data_pipeline/process_single_video.py](data_pipeline/process_single_video.py) - script to process a single video to get trajectories, captions, and question–answer pairs.
 
 ```bash
-python process_single_video.py --video_path /path/to/video.mp4 --base_output_dir /path/to/output
+python examples/process_single_video.py --video_path /path/to/video.mp4 --base_output_dir /path/to/output
 ```
 
 ### [Model Inference] Process a single video
@@ -75,7 +75,7 @@ Please find our models [here](https://huggingface.co/WoWolf/models)
 - [examples/demo_nvila.py](examples/demo_nvila.py) - script to process a single video using our model.
 
 ```bash
-python demo_nvila.py --video_path /path/to/video.mp4 --prompt "Your question here"
+python examples/demo_nvila.py --video_path /path/to/video.mp4 --prompt "Your question here"
 ```
 
 
@@ -96,14 +96,3 @@ If you use our work or our implementation in this repo, or find them helpful, pl
 
 
 #### FoundationMotion is also referred to as Wolf V2 🐺, the second chapter in the Wolf series: https://wolfv0.github.io/.
-
-
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Wolfv0/FoundationMotion&type=Date)](https://star-history.com/#Wolfv0/FoundationMotion&Date)
-
-<p align="right" style="font-size: 14px; margin-top: 20px;">
-  <a href="#readme-top" style="text-decoration: none; font-weight: bold;">
-    ↑ Back to Top ↑
-  </a>
-</p>
