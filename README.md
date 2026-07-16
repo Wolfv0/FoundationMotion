@@ -62,7 +62,7 @@ Drag a video, ask a question, and get an ansewer.
 ## Examples
 
 ### [Data Curation] Process a single video
-- [examples/process_single_video.py](data_pipeline/process_single_video.py) - script to process a single video to get trajectories, captions, and question–answer pairs.
+- [examples/process_single_video.py](examples/process_single_video.py) - script to process a single video to get trajectories, captions, and question–answer pairs.
 
 ```bash
 python examples/process_single_video.py --video_path /path/to/video.mp4 --base_output_dir /path/to/output
